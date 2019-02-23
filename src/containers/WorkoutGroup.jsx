@@ -11,7 +11,7 @@ class WorkoutGroup extends Component {
   }
 
   render(){
-    return <div className="BurgerList">Poop is poop is poop is poop</div>
+    return <div className="WorkoutList">Poop is poop is poop is poop</div>
     // (<div>
     
       
