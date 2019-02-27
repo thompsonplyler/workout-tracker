@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
 
 class WorkoutGroup extends Component {
-  state={
-    wtf: []
-  }
 
   componentDidMount(){
 
   }
 
   render(){
+    // console.log("Sidebar props", this.props)
     return <div className="WorkoutList">Poop is poop is poop is poop</div>
     // (<div>
     

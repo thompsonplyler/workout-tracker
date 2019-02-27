@@ -8,10 +8,12 @@ import Workout from './components/Workout'
 
 class App extends Component {
   state={
-    wtf: []
+    workout: ""
   }
 
   componentDidMount(){
+    fetch("http://localhost:3001/api/v1/user_sessions/").then(r=>r.json())
+    .then(workouts=>console.log(workouts))
 
   }
 
@@ -20,8 +22,8 @@ class App extends Component {
     return(
       
       <div id="App">
-      <WorkoutGroup />
-      <Workout />
+      <WorkoutGroup workout={this.state.workout}/>
+      {/* <Workout /> */}
       </div>
     )
 }
