@@ -12,37 +12,16 @@ class WorkoutGroup extends Component {
       .then(uSessions=>this.setState({sessions:uSessions}))
   }
 
-  render(){
-    let workoutList = this.state.sessions.map(session=> {return <li>
-      {session.session.name}
-    </li>
-
+  render()
+      {let workoutList = this.state.sessions.map(session=> {
+      return  <li onClick={()=> this.props.clickHandler(session)}>
+                {session.session.name}
+                  <br />
+                  <br />
+              </li>
     })
-    // {sessions} = this.state
-    // console.log("Sidebar props", this.props)
-    return <div className="WorkoutList"><ul>{workoutList}</ul></div>
-    // (<div>
-    
-      
-    //   <Route 
-    //   path="/" 
-    //   render={()=>(
-    //           <WorkoutGroup clickHandler={this.submitButtonClicked} />
-    //   )}
-    //   />;
-      
-    //   {// DEFINE COLLECTION PATH/ MAIN SCREEN
-    //   }
-      
-    //   <Route 
-    //   path="/collection" 
-    //   render={()=>(
-    //           <AddToCollection characters={this.state.character} />
-    //   )}
-    //   />;
 
-    //   </div>
-    // )
+    return <div className="WorkoutList"><ul>{workoutList}</ul></div>
   }
 }
 
