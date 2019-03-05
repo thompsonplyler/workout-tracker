@@ -25,7 +25,7 @@ class WorkoutPage extends Component {
     return workout
   }
 
-  showWorkoutPage = (thing) => {
+  showWorkout = (thing) => {
     this.setState({
         session: thing.session_workouts.workouts,
         u_session: thing.id
@@ -36,7 +36,7 @@ class WorkoutPage extends Component {
     
     return <div className="WorkoutContainer">
         <WorkoutDetail workout={this.props.initial_session} u_session={this.state.u_session}/>
-        <WorkoutGroup clickHandler={this.showWorkout} workout={this.props.workout} url_id={this.props.match.params.workoutID} match={this.props.match} u_session={this.state.u_session}/>
+        <WorkoutGroup clickHandler={this.props.clickHandler} workout={this.props.workout} url_id={this.props.match.params.workoutID} match={this.props.match} u_session={this.state.u_session}/>
 
 
     </div>
