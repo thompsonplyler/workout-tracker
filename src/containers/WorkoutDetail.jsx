@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Route} from 'react-router-dom';
 import Exercise from '../components/Exercise'
 class WorkoutDetail extends Component {
   state={
@@ -10,32 +9,37 @@ class WorkoutDetail extends Component {
 
   }
 
-  renderExercise= (exercise) => {
-    console.log(exercise)
+  renderExercise= (exercise, u_session, s_workout) => {
+    
     return <div>
-        <Exercise exercise={exercise}/>
+        <Exercise key={exercise.id} exercise={exercise} u_session={u_session} s_workout={s_workout}/>
     </div>
   }
 
   render(){
-      console.log(this.props.workout)
       let {workout} = this.props
-      if (workout.length > 1){
+      let {u_session} = this.props
+    
+      if (workout.length > 0){
         let exerciseList = workout.map(workoutItem=>{
             return <div>
                 <h3>{workoutItem.component}</h3>
-                {workoutItem.exercises.map(exercise=>this.renderExercise(exercise))}
+                {workoutItem.exercises.map(exercise=>this.renderExercise(exercise, u_session,workoutItem.session_workout))}
             </div>
         })
         return <div className="WorkoutDisplay"><ul>
         {exerciseList}
-    </ul></div>
+    </ul>
+    <h2>All done!</h2>
+    </div>
       }
       else {
           let exerciseList = "poop"
           return <div className="WorkoutDisplay"><ul>
         {exerciseList}
-    </ul></div>
+    </ul>
+    
+    </div>
         }
 }
 

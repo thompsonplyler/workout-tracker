@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
-import {Route} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 class MainWorkoutList extends Component {
-
-  clicked =(session)=>{
-    console.log(session)
-
-  }
 
   completedWorkout(session){
     return <li key={session.id} className="completedWorkout" onClick={()=> this.clicked(session)}>
@@ -15,15 +9,14 @@ class MainWorkoutList extends Component {
   }
 
   incompleteWorkout(session){
-    return <li key={session.id} onClick={()=> this.clicked(session)}>
-    {session.session.name}<br /><br /></li>
+    return <li key={session.id} onClick={()=> this.props.clickHandler(session)}>
+    <Link to={`${this.props.match.url}/${session.id}`}>{session.session.name}</Link><br /><br /></li>
   }
 
   render()
-
       {
+        console.log(this.props.match)
       let {workout} = this.props
-      console.log("Workout from Main Workout List.", workout)
       if (workout.length > 0){
 
       let workoutList = workout.map(workout=> {
