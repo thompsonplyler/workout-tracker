@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 class MainWorkoutList extends Component {
 
   completedWorkout(session){
-    return <li key={session.id} className="completedWorkout" onClick={()=> this.clicked(session)}>
-    {session.session.name}<br /><br /></li>
+    return <li key={session.id} className="completedWorkout" onClick={()=> this.props.clickHandler(session)}>
+    <Link to={`${this.props.match.url}/${session.id}`}>{session.session.name}</Link><br /><br /></li>
   }
 
   incompleteWorkout(session){

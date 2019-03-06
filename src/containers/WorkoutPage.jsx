@@ -14,14 +14,12 @@ class WorkoutPage extends Component {
   }
 
   componentDidUpdate(prevProps){
-    console.log("PrevProps",prevProps,"\n","Props", this.props)
     if (!prevProps.initial_session.id && !prevProps.workout.length && this.props.workout.length) 
 {    this.props.paramsWorkout(parseInt(this.props.match.params.workoutID))}
   }
 
   loadWorkout(){
     let workout = this.props.workout.filter(workout => workout.id === this.props.match.params.workoutID)
-    console.log(workout)
     return workout
   }
 
@@ -32,10 +30,8 @@ class WorkoutPage extends Component {
     })
   }
   render(){
-    console.log("WorkoutPage props", this.props)
-    
     return <div className="WorkoutContainer">
-        <WorkoutDetail workout={this.props.initial_session} u_session={this.state.u_session}/>
+        <WorkoutDetail workout={this.props.initial_session} u_session={this.props.u_session} completed ={this.props.completed}/>
         <WorkoutGroup clickHandler={this.props.clickHandler} workout={this.props.workout} url_id={this.props.match.params.workoutID} match={this.props.match} u_session={this.state.u_session}/>
 
 

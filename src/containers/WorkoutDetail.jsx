@@ -16,9 +16,24 @@ class WorkoutDetail extends Component {
     </div>
   }
 
+  finishWorkout=(u_session, s_completed)=>{
+    console.log(u_session)
+    fetch(`http://localhost:3001/api/v1/user_sessions/${u_session}`)
+    .then(r=>r.json())
+    .then(us=>console.log(us))
+    
+    fetch(`http://localhost:3001/api/v1/user_sessions/${u_session}`,{
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    body: JSON.stringify({
+      completed: !s_completed }
+    )})
+  }
+
   render(){
-      let {workout} = this.props
-      let {u_session} = this.props
+      let {workout, u_session, completed} = this.props
     
       if (workout.length > 0){
         let exerciseList = workout.map(workoutItem=>{
@@ -30,7 +45,8 @@ class WorkoutDetail extends Component {
         return <div className="WorkoutDisplay"><ul>
         {exerciseList}
     </ul>
-    <h2>All done!</h2>
+    {console.log(u_session)}
+    <h2 onClick={()=>this.finishWorkout(u_session, completed)}>All done!</h2>
     </div>
       }
       else {

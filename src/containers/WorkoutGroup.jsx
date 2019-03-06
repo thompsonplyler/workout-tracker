@@ -12,7 +12,6 @@ class WorkoutGroup extends Component {
 
   render()
       {
-        console.log(this.props.match)
         let session = this.props.workout
         if (session.length>0){let workoutList = session.map(session=> 
           {
