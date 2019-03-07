@@ -45,7 +45,6 @@ class WorkoutDetail extends Component {
         return <div className="WorkoutDisplay"><ul>
         {exerciseList}
     </ul>
-    {console.log(u_session)}
     <h2 onClick={()=>this.finishWorkout(u_session, completed)}>All done!</h2>
     </div>
       }

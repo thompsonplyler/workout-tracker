@@ -40,7 +40,7 @@ class App extends Component {
   componentDidMount(){
     if(localStorage.getItem("token")){
       let token = localStorage.getItem("token")
-      console.log(token)
+      
       fetch("http://localhost:3001/api/v1/current",{
         headers:{
           "content-type": "application/json",

@@ -15,7 +15,7 @@ class MainWorkoutList extends Component {
 
   render()
       {
-        console.log(this.props.match)
+    
       let {workout} = this.props
       if (workout.length > 0){
 

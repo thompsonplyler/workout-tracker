@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 
 class Exercise extends Component {
   state={
-    input: ""
+    input: "",
+    exists: false,
+    exercise: {}
   }
 
   componentDidMount(){
+    this.setState({
+      exercise: this.props.exercise
+    })
     if(this.props.exercise.user_session_workout_exercise){
       this.setState({
         input: this.props.exercise.user_session_workout_exercise.input
@@ -17,22 +22,46 @@ class Exercise extends Component {
     this.setState({
       input: value.target.value
     })
+    console.log(this.state.input)
+    console.log(this.props)
+    console.log(uswe.input)
+
     if (uswe) {
+    
+      console.log(`I say a token exists! Behold: ${uswe.input}`)
+      let token = localStorage.getItem("token")
       fetch(`http://localhost:3001/api/v1/user_session_workout_exercises/${uswe.id}`, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Accepts: "application/json",
+        Authorization: `Bearer ${token}`
       },
     body: JSON.stringify({user_session_workout_exercise:{
       input: value.target.value }
     })}
-      )
+      ).then(r=>r.json())
+      .then(data=>{
+        
+        const newExercise = {
+          ...this.state.exercise,
+          user_session_workout_exercise: data.user_session_workout_exercise
+        }
+
+        this.setState({
+        exercise: newExercise})
+      })
+      
     }
     else {
+      console.log(`THERE IS NO INPUT!`)
+      let token = localStorage.getItem("token")
       fetch(`http://localhost:3001/api/v1/user_session_workout_exercises/`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Accepts: "application/json",
+        Authorization: `Bearer ${token}`
       },
     body: JSON.stringify({
       user_session_workout_exercise:
@@ -42,7 +71,18 @@ class Exercise extends Component {
       workout_exercise_id: w_exercise}
     }
     )}
-      )
+      ).then(r=>r.json())
+      .then(data=>{
+
+        
+        const newExercise = {
+          ...this.state.exercise,
+          user_session_workout_exercise: data.user_session_workout_exercise
+        }
+
+        this.setState({
+        exercise: newExercise})
+      })
     }
     
   }
@@ -50,6 +90,7 @@ class Exercise extends Component {
   // look up debouncing for input fields
 
   showReps = (reps, category, bi, s_workout, u_session, w_exercise, uswe)=>{
+    console.log(uswe)
     switch(category){
       case "rep_null":
       return this.catRepNull(reps, bi);
@@ -78,7 +119,7 @@ class Exercise extends Component {
   }
 
   catRepWeight(reps,bi, s_workout, u_session, w_exercise, uswe){
-    return <span>{reps} reps {bi?'each side':null} <input type="text" onChange={(event)=> this.setInput(event, s_workout, u_session, w_exercise, uswe)} value={this.state.input}/></span> 
+    return <span>{reps} reps {bi?'each side':null} <input type="text" name="input" onChange={(event)=> this.setInput(event, s_workout, u_session, w_exercise, uswe)} value={this.state.input}/></span> 
   }
 
   catSpeed(reps,bi, s_workout, u_session, w_exercise, uswe){
@@ -95,8 +136,10 @@ class Exercise extends Component {
   }
 
   render(){
-    const {exercise, s_workout, u_session} = this.props
-
+    
+    const {s_workout, u_session} = this.props
+    const {exercise} = this.state
+    console.log(exercise)
     return <div onClick={this.showExercise}>
     <div>{exercise.name}</div>
     <div>{exercise.sets} x {this.showReps(exercise.reps, exercise.category, exercise.bi, s_workout, u_session, exercise.workout_exercise_id,exercise.user_session_workout_exercise)}</div>
