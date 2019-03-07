@@ -3,7 +3,9 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
+import {withRouter} from 'react-router'
 import './App.css';
+import {Redirect} from 'react-router'
 import WorkoutPage from './containers/WorkoutPage'
 import MainWorkoutList from './containers/MainWorkoutList';
 import Login from './components/Login'
@@ -34,24 +36,31 @@ class App extends Component {
     })
   }
 
-
-
-
   componentDidMount(){
     if(localStorage.getItem("token")){
       let token = localStorage.getItem("token")
-      fetch("http://localhost:3001/api/v1/user_sessions/",{
+      console.log(token)
+      fetch("http://localhost:3001/api/v1/buttcrack",{
         headers:{
           "content-type": "application/json",
           Accepts: "application/json",
           Authorization: `Bearer ${token}`
         }
       }).then(r=>r.json())
-        .then(workout=> workout.error ? alert("You have to log in"): 
-         
+        .then(workout=> workout.error ? 
+          
+          this.props.history.push('/login'): 
           this.setState({
-      workout})
-    )}
+            workout: workout.user_sessions
+          })  
+          // console.log(workout.user_sessions)
+    )
+    
+  }
+   
+    else{
+      this.props.history.push('/login')
+    }
 
     
     // console.log("App props")
@@ -75,9 +84,12 @@ class App extends Component {
         }) 
     }).then(r=>r.json())
     .then(data=>{
-      console.log(data)
+      console.log("Hello, I'm data!")
       localStorage.setItem("token",data.jwt);
-      this.setState({user:data.user})
+      this.setState({
+        user:data.user,
+        workout: data.user.user_sessions
+      })
     }
     )
 }
@@ -98,13 +110,17 @@ authUser = (e,userObj) => {
       password:password
     }
     })
-
   }).then(r=>r.json())
     .then(data=>{
-      console.log(data)
+      console.log(this.props)
+      console.log("Hello, I'm data!",data.user.user_sessions)
       localStorage.setItem("token", data.jwt);
-      this.setState({user:data.user})
-    })
+      this.setState({
+        user: data.user,
+        workout: data.user.user_sessions
+      })
+      
+    }).then(this.props.history.push("/workouts"))
 
 
 }
@@ -113,7 +129,7 @@ authUser = (e,userObj) => {
 
   render(){
     return(
-      <Router>
+      
       <div id="App">
       
       <Route exact path="/workouts" render={routerProps=> <MainWorkoutList clickHandler={this.showWorkout} {...routerProps} workout={this.state.workout}/>} />
@@ -131,15 +147,15 @@ authUser = (e,userObj) => {
       />
     }/>
 
-      <Route exact path="/" component={Login} />
-      <Route exact path="/login" render={()=><Login submitHandler={this.authUser}/>} />
-      <Route exact path="/signup" render={()=><Signup submitHandler={this.createUser}/>}/>
+      <Route exact path="/" render={routerProps =><Login {...routerProps} submitHandler={this.authUser}/>} />
+      <Route exact path="/login" render={routerProps=><Login {...routerProps} submitHandler={this.authUser}/>} />
+      <Route exact path="/signup" render={routerProps=><Signup {...routerProps} submitHandler={this.createUser}/>}/>
       
       </div>
       
-      </Router>
+      
     )
 }
 }
 
-export default App
+export default withRouter(App)
