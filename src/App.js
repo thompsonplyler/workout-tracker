@@ -10,6 +10,7 @@ import WorkoutPage from './containers/WorkoutPage'
 import MainWorkoutList from './containers/MainWorkoutList';
 import Login from './components/Login'
 import Signup from './components/Signup'
+import Nav from './components/Nav'
 
 class App extends Component {
   state={
@@ -40,7 +41,7 @@ class App extends Component {
     if(localStorage.getItem("token")){
       let token = localStorage.getItem("token")
       console.log(token)
-      fetch("http://localhost:3001/api/v1/buttcrack",{
+      fetch("http://localhost:3001/api/v1/current",{
         headers:{
           "content-type": "application/json",
           Accepts: "application/json",
@@ -84,18 +85,17 @@ class App extends Component {
         }) 
     }).then(r=>r.json())
     .then(data=>{
-      console.log("Hello, I'm data!")
+      console.log("Hello, I'm data!", data)
       localStorage.setItem("token",data.jwt);
       this.setState({
         user:data.user,
         workout: data.user.user_sessions
       })
     }
-    )
+    ).then(this.props.history.push("/workouts"))
 }
 
 authUser = (e,userObj) => {
-  let name = userObj.name
   let password = userObj.password
   let email = userObj.email
   e.preventDefault();
@@ -131,7 +131,7 @@ authUser = (e,userObj) => {
     return(
       
       <div id="App">
-      
+      <Route render={routerProps=><Nav {...routerProps}/>} />
       <Route exact path="/workouts" render={routerProps=> <MainWorkoutList clickHandler={this.showWorkout} {...routerProps} workout={this.state.workout}/>} />
       
       <Route path="/workouts/:workoutID" render={routerProps=> 

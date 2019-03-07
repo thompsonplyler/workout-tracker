@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Signup extends Component {
     state = {
@@ -25,31 +26,33 @@ class Signup extends Component {
     
       render() {
         return (
-          <form onSubmit={(e)=>this.props.submitHandler (e,this.state)}>
-            <input
-              type="text"
-              placeholder="email"
-              value={this.state.email}
-              name="email"
-              onChange={this.changeHandler}
-            />
-            <input
-              type="name"
-              placeholder="name"
-              value={this.state.name}
-              name="name"
-              onChange={this.changeHandler}
-            />
-            <input
-              type="password"
-              placeholder="password"
-              value={this.state.password}
-              name="password"
-              onChange={this.changeHandler}
-            />
-            <button>Sign Up</button>
-          </form>
-
+          <div>
+            <form onSubmit={(e)=>this.props.submitHandler (e,this.state)}>
+              <input
+                type="text"
+                placeholder="email"
+                value={this.state.email}
+                name="email"
+                onChange={this.changeHandler}
+              />
+              <input
+                type="name"
+                placeholder="name"
+                value={this.state.name}
+                name="name"
+                onChange={this.changeHandler}
+              />
+              <input
+                type="password"
+                placeholder="password"
+                value={this.state.password}
+                name="password"
+                onChange={this.changeHandler}
+              />
+              <button>Sign Up</button>
+            </form>
+            <Link to="/login">Login</Link>
+          </div>
           
         );
       }
