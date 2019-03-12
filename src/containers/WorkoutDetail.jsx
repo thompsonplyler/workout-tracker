@@ -18,18 +18,24 @@ class WorkoutDetail extends Component {
 
   finishWorkout=(u_session, s_completed)=>{
     console.log(u_session)
-    fetch(`http://localhost:3001/api/v1/user_sessions/${u_session}`)
-    .then(r=>r.json())
-    .then(us=>console.log(us))
+    console.log(s_completed)
+    // fetch(`http://localhost:3001/api/v1/user_sessions/${u_session}`)
+    // .then(r=>r.json())
+    // .then(us=>console.log(us)
+
+    let token = localStorage.getItem("token")
     
-    fetch(`http://localhost:3001/api/v1/user_sessions/${u_session}`,{
+    fetch(`http://localhost:3001/api/v1/user_sessions/${u_session}`, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Accepts: "application/json",
+        Authorization: `Bearer ${token}`
       },
-    body: JSON.stringify({
-      completed: !s_completed }
-    )})
+      body: JSON.stringify({
+        completed: !s_completed }
+      )}
+      )
   }
 
   render(){

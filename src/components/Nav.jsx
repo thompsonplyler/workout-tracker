@@ -6,7 +6,6 @@ class Nav extends Component {
 
     logout(history){
         localStorage.clear()
-         // .history.push("/login")
         this.props.history.push("/login")
     }
 
@@ -14,7 +13,7 @@ class Nav extends Component {
         
         return (
 
-            <div>
+            <div className="Nav">
                 <Link to="/workouts">Workouts</Link>
                 <div onClick={()=>this.logout()}> Logout</div>
                 <br />

@@ -130,7 +130,7 @@ authUser = (e,userObj) => {
   render(){
     return(
       
-      <div id="App">
+      <div >
       <Route render={routerProps=><Nav {...routerProps}/>} />
       <Route exact path="/workouts" render={routerProps=> <MainWorkoutList clickHandler={this.showWorkout} {...routerProps} workout={this.state.workout}/>} />
       

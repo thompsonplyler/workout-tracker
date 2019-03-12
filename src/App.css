@@ -9,6 +9,15 @@ ul {
   display: flex;
 }
 
+.Nav {
+  font-size: 2vh;
+  display: flex;
+  justify-content: right;
+  flex-direction: row;
+  align-items: flex-end
+}
+
+
 .WorkoutContainer {
   width: 25vw;
   height: 100vh;
@@ -59,3 +68,4 @@ ul {
   justify-content: left;
   align-items: center;
 }
+
