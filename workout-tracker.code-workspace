@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "/home/thompson/code/projects/workout-tracker-backend"
+		},
+		{
+			"path": "/home/thompson/code/projects/css tricks"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "css tricks"
+	}
+}
