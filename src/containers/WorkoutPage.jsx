@@ -30,7 +30,7 @@ class WorkoutPage extends Component {
     })
   }
   render(){
-    return <div className="WorkoutContainer">
+    return <div className="wrapper">
         <WorkoutDetail workout={this.props.initial_session} u_session={this.props.u_session} completed ={this.props.completed}/>
         <WorkoutGroup clickHandler={this.props.clickHandler} workout={this.props.workout} url_id={this.props.match.params.workoutID} match={this.props.match} u_session={this.state.u_session}/>
 

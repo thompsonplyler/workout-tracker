@@ -48,15 +48,15 @@ class WorkoutDetail extends Component {
                 {workoutItem.exercises.map(exercise=>this.renderExercise(exercise, u_session,workoutItem.session_workout))}
             </div>
         })
-        return <div className="WorkoutDisplay"><ul>
+        return <div className="detail"><ul>
         {exerciseList}
     </ul>
-    <h2 onClick={()=>this.finishWorkout(u_session, completed)}>All done!</h2>
+    <h2 align="center" onClick={()=>this.finishWorkout(u_session, completed)}>All done!</h2>
     </div>
       }
       else {
           let exerciseList = "poop"
-          return <div className="WorkoutDisplay"><ul>
+          return <div className="detail"><ul>
         {exerciseList}
     </ul>
     
