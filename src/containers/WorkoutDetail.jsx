@@ -63,17 +63,6 @@ class WorkoutDetail extends Component {
     </div>
         }
 }
-
-  //       {let workoutList = this.state.sessions.map(session=> {
-//       return  <li onClick={()=> this.props.clickHandler(session)}>
-//                 {session.session.name}
-//                   <br />
-//                   <br />
-//               </li>
-//     })
-
-//     return <div className="WorkoutList"><ul>{workoutList}</ul></div>
-//   }
 }
 
 export default WorkoutDetail;
