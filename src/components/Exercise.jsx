@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import Modal from "./Modal"
 
 class Exercise extends Component {
   state={
     input: "",
     exists: false,
-    exercise: {}
+    exercise: {},
+    click: false
   }
 
   componentDidMount(){
@@ -90,7 +92,6 @@ class Exercise extends Component {
   // look up debouncing for input fields
 
   showReps = (reps, category, bi, s_workout, u_session, w_exercise, uswe)=>{
-    console.log(uswe)
     switch(category){
       case "rep_null":
       return this.catRepNull(reps, bi);
@@ -125,23 +126,28 @@ class Exercise extends Component {
   catSpeed(reps,bi, s_workout, u_session, w_exercise, uswe){
     if (Math.floor(reps/60) < 1){
 
-      return `${reps%60}s ${bi?'each side':null}`
+      return `${reps%60}s`
     }
     else {
-      return `${Math.floor(reps/60)}m ${reps%60}s ${bi?'each side':null}`
+      return `${Math.floor(reps/60)}m ${reps%60}s ${bi?'each side':''}`
     }
   }
 
   showExercise = () => {
+    this.setState({clicked: !this.state.clicked})
+    console.log(this.state.exercise.name)
   }
 
+ 
+
   render(){
-    
-    const {s_workout, u_session} = this.props
-    const {exercise} = this.state
-    console.log(exercise)
-    return <div onClick={this.showExercise}>
-    <div>{exercise.name}</div>
+
+    let {s_workout, u_session} = this.props
+    let {exercise, clicked} = this.state
+
+    return <div>
+      <div>{clicked ? <Modal clickHandler={this.showExercise} exercise={exercise} />:null}</div>
+    <div onClick={this.showExercise}>{exercise.name}</div>
     <div>{exercise.sets} x {this.showReps(exercise.reps, exercise.category, exercise.bi, s_workout, u_session, exercise.workout_exercise_id,exercise.user_session_workout_exercise)}</div>
     <br />
     </div>
