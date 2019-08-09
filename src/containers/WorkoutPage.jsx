@@ -9,10 +9,7 @@ class WorkoutPage extends Component {
     initial_click: false
   }
 
-  componentDidMount(){
-    // this.props.paramsWorkout(this.props.match.params.workoutID)
-  }
-
+// 2019-07-27 - No idea what this is doing. 
   componentDidUpdate(prevProps){
     if (!prevProps.initial_session.id && !prevProps.workout.length && this.props.workout.length) 
 {    this.props.paramsWorkout(parseInt(this.props.match.params.workoutID))}

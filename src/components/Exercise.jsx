@@ -21,12 +21,22 @@ class Exercise extends Component {
   }
 
   setInput = (value, s_workout, u_session, w_exercise, uswe) => {
+    
     this.setState({
       input: value.target.value
     })
+
+    console.log(`Input state changed. New input is: ${value.target.value}`)
+  }
+
+  submitHandler = (value, s_workout, u_session, w_exercise, uswe) => {
+    value.preventDefault()
+    console.log("Submit received.")
+
     console.log(this.state.input)
-    console.log(this.props)
+    // console.log(this.props)
     console.log(uswe.input)
+    console.log(uswe.id)
 
     if (uswe) {
     
@@ -40,7 +50,7 @@ class Exercise extends Component {
         Authorization: `Bearer ${token}`
       },
     body: JSON.stringify({user_session_workout_exercise:{
-      input: value.target.value }
+      input: this.state.input }
     })}
       ).then(r=>r.json())
       .then(data=>{
@@ -86,9 +96,11 @@ class Exercise extends Component {
         exercise: newExercise})
       })
     }
-    
-  }
 
+
+
+
+  }
   // look up debouncing for input fields
 
   showReps = (reps, category, bi, s_workout, u_session, w_exercise, uswe)=>{
@@ -120,7 +132,10 @@ class Exercise extends Component {
   }
 
   catRepWeight(reps,bi, s_workout, u_session, w_exercise, uswe){
-    return <span>{reps} reps {bi?'each side':null} <input type="text" name="input" onChange={(event)=> this.setInput(event, s_workout, u_session, w_exercise, uswe)} value={this.state.input}/></span> 
+    return <span>{reps} reps {bi?'each side':null} <form onSubmit={(event)=> this.submitHandler(event, s_workout, u_session, w_exercise, uswe)}>
+      <input type="text" name="input" onChange={(event)=> this.setInput(event, s_workout, u_session, w_exercise, uswe)} value={this.state.input}/>
+      <input type="submit" name="submit" value="confirm"/>    
+    </form></span> 
   }
 
   catSpeed(reps,bi, s_workout, u_session, w_exercise, uswe){

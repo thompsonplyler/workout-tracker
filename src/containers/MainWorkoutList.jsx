@@ -17,14 +17,17 @@ class MainWorkoutList extends Component {
       {
     
       let {workout} = this.props
+      
       if (workout.length > 0){
 
-      let workoutList = workout.map(workout=> {
-        if (workout.completed){
-          return this.completedWorkout(workout)
+      let workoutList = workout.map(workout_elem=> {
+        if (workout_elem.completed){
+          // console.log(workout_elem)
+          console.log(`Workout ${workout_elem.session.name} Completed `)
+          return this.completedWorkout(workout_elem)
         }
         else{
-          return this.incompleteWorkout(workout)
+          return this.incompleteWorkout(workout_elem)
         }
 
     })

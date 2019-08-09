@@ -6,10 +6,6 @@ class WorkoutGroup extends Component {
     sessions:[]
   }
 
-  componentDidMount(){
-
-  }
-
   render()
       {
         let session = this.props.workout
