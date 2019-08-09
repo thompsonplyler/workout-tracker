@@ -9,14 +9,15 @@ class WorkoutGroup extends Component {
   render()
       {
         let session = this.props.workout
-        if (session.length>0){let workoutList = session.map(session=> 
-          {
-      return  <li className="side-li"
-                key={session.id} 
+        if (session.length>0){
+          let workoutList = session.map(session=> {
+            return (session.completed) ? 
+            <li className="side-li side-li-completed" key={session.id} 
                 onClick={()=> this.props.clickHandler(session)}>
                 <Link to={this.props.match}>{session.session.name}</Link>
-                  <br />
-                  <br />
+              </li> : <li className="side-li" key={session.id} 
+                onClick={()=> this.props.clickHandler(session)}>
+                <Link to={this.props.match}>{session.session.name}</Link>
               </li>
     })
 

@@ -33,7 +33,7 @@ class Exercise extends Component {
     value.preventDefault()
     console.log("Submit received.")
 
-    console.log(this.state.input)
+    console.log(`Input state is ${this.state.input}`)
     // console.log(this.props)
     console.log(uswe.input)
     console.log(uswe.id)
@@ -66,7 +66,7 @@ class Exercise extends Component {
       
     }
     else {
-      console.log(`THERE IS NO INPUT!`)
+      console.log(`THERE IS NO INPUT! But here is the intended value: ${this.state.input}`)
       let token = localStorage.getItem("token")
       fetch(`http://localhost:3001/api/v1/user_session_workout_exercises/`, {
       method: "POST",
@@ -77,7 +77,7 @@ class Exercise extends Component {
       },
     body: JSON.stringify({
       user_session_workout_exercise:
-      {input: value.target.value,
+      {input: this.state.input,
       session_workout_id: s_workout,
       user_session_id: u_session,
       workout_exercise_id: w_exercise}

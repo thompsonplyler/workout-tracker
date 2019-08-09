@@ -5,11 +5,11 @@ class MainWorkoutList extends Component {
 
   completedWorkout(session){
     return <li key={session.id} className="completedWorkout" onClick={()=> this.props.clickHandler(session)}>
-    <Link to={`${this.props.match.url}/${session.id}`}>{session.session.name}</Link><br /><br /></li>
+    <Link to={`${this.props.match.url}/${session.id}`}>{session.session.name} - COMPLETE!</Link><br /><br /></li>
   }
 
   incompleteWorkout(session){
-    return <li key={session.id} onClick={()=> this.props.clickHandler(session)}>
+    return <li className="incompleteWorkout" key={session.id} onClick={()=> this.props.clickHandler(session)}>
     <Link to={`${this.props.match.url}/${session.id}`}>{session.session.name}</Link><br /><br /></li>
   }
 
@@ -32,7 +32,7 @@ class MainWorkoutList extends Component {
 
     })
 
-    return <div className=""><ul>{workoutList}</ul></div>}
+    return <div className="workoutList"><ul>{workoutList}</ul></div>}
     else{
       return <div>Please wait.</div>
     }
